@@ -1,6 +1,6 @@
 # MSN Messenger Archive Viewer
 
-A local web app for browsing your old MSN Messenger chat history. Built with a Windows XP MSN Messenger aesthetic — complete with the classic UI chrome, scrollbars, emoticons, and all.
+A local web app for browsing your old MSN Messenger chat history. Built with a Windows XP MSN Messenger aesthetic. Complete with the classic UI chrome, scrollbars, emoticons, and all.
 
 ![MSN Messenger Archive Viewer](.github/preview.png)
 
@@ -94,6 +94,6 @@ Then open [http://localhost:5173](http://localhost:5173) in your browser.
 
 ## Notes
 
-- Your chat data never leaves your machine — everything runs locally
+- Your chat data never leaves your machine, everything runs locally
 - The backend runs on port `3002` by default (configurable in `server/index.ts`)
 - Conversations from multiple accounts and duplicate log files for the same contact are automatically merged
