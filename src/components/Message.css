@@ -1,0 +1,71 @@
+.message {
+  margin-bottom: 6px;
+  padding: 2px 0;
+}
+
+.message-header {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  margin-bottom: 1px;
+}
+
+.message-name {
+  color: #848484;
+  font-weight: 300;
+  font-size: 13px;
+}
+
+.message-time {
+  font-size: 10px;
+  color: #aaa;
+  flex-shrink: 0;
+}
+
+.message-text {
+  font-size: 13px;
+  line-height: 1.4;
+  word-break: break-word;
+  padding-left: 2px;
+  white-space: pre-wrap;
+}
+
+.message-empty {
+  color: #bbb;
+  font-style: italic;
+  font-size: 12px;
+}
+
+.message-system {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 11px;
+  color: #999;
+  font-style: italic;
+  margin: 4px 0;
+  padding: 2px 0;
+}
+
+
+.search-match {
+  background: #ffe066;
+  color: #000;
+  border-radius: 2px;
+  padding: 0 1px;
+}
+
+.msn-emoticon {
+  font-size: 1.25em;
+  line-height: 1;
+  vertical-align: middle;
+  cursor: default;
+}
+
+.message-active-match {
+  background: #fff3cc;
+  border-left: 3px solid #f0a800;
+  padding-left: 5px;
+  margin-left: -8px;
+  border-radius: 2px;
+}

@@ -1,0 +1,83 @@
+.app-layout {
+  display: flex;
+  height: 100vh;
+  overflow: hidden;
+  background-image: url('./assets/xp_wallpaper.jpg');
+  background-size: cover;
+  background-position: center;
+}
+
+/* Transparent spacer so the sidebar doesn't collapse to fill the whole viewport */
+.app-desktop {
+  flex: 1;
+}
+
+/* ── XP MSN scrollbar theme (overlayscrollbars, theme: os-theme-xp) ──────── */
+
+/* Force width on the scrollbar itself */
+.os-scrollbar-vertical.os-theme-xp {
+  width: 22px !important;
+  --os-size: 22px;
+  --os-padding-perpendicular: 0;
+  --os-padding-axis: 22px;   /* pushes track inward from both ends for arrow buttons */
+  --os-handle-min-size: 28px;
+  --os-handle-border-radius: 0;
+  --os-track-border-radius: 0;
+  --os-track-bg: #dae6f6;
+  --os-track-bg-hover: #dae6f6;
+  --os-track-bg-active: #dae6f6;
+}
+
+/* Track */
+.os-theme-xp .os-scrollbar-track {
+  background: #dae6f6 !important;
+  border-radius: 0 !important;
+}
+
+/* Thumb: flat #dae6f6 rectangle with 3-line grip */
+.os-theme-xp .os-scrollbar-handle {
+  background-color: #dae6f6 !important;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='10' viewBox='0 0 12 10'%3E%3Cline x1='2' y1='2' x2='10' y2='2' stroke='%235a8abf' stroke-width='1.2' stroke-linecap='round'/%3E%3Cline x1='2' y1='5' x2='10' y2='5' stroke='%235a8abf' stroke-width='1.2' stroke-linecap='round'/%3E%3Cline x1='2' y1='8' x2='10' y2='8' stroke='%235a8abf' stroke-width='1.2' stroke-linecap='round'/%3E%3C/svg%3E") !important;
+  background-repeat: no-repeat !important;
+  background-position: center !important;
+  background-size: 12px 10px !important;
+  border: 1px solid #7aaace !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+}
+
+.os-theme-xp .os-scrollbar-handle:hover {
+  background-color: #c8d8ee !important;
+}
+
+/* Track border */
+.os-scrollbar-vertical.os-theme-xp .os-scrollbar-track {
+  border-left: 1px solid #a0b8d0 !important;
+}
+
+/* Arrow buttons via pseudo-elements */
+.os-scrollbar-vertical.os-theme-xp::before,
+.os-scrollbar-vertical.os-theme-xp::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 22px;
+  background: #dae6f6;
+  border: 1px solid #a0b8d0;
+  box-sizing: border-box;
+  z-index: 3;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 10px 8px;
+}
+
+.os-scrollbar-vertical.os-theme-xp::before {
+  top: 0;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='8' viewBox='0 0 10 8'%3E%3Cpolyline points='1,7 5,1 9,7' fill='none' stroke='%234472a8' stroke-width='1.5' stroke-linejoin='round' stroke-linecap='round'/%3E%3C/svg%3E");
+}
+
+.os-scrollbar-vertical.os-theme-xp::after {
+  bottom: 0;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='8' viewBox='0 0 10 8'%3E%3Cpolyline points='1,1 5,7 9,1' fill='none' stroke='%234472a8' stroke-width='1.5' stroke-linejoin='round' stroke-linecap='round'/%3E%3C/svg%3E");
+}
