@@ -43,9 +43,9 @@ export function searchConversations(term: string): string[] {
 }
 
 export function stripNumericSuffix(filename: string): string {
-  // "anitabun102425597" -> "anitabun"
-  // "anitabun102425597 - Archive likr 30 times" -> "anitabun"
-  // "a_zip13092577139" -> "a_zip"
+  // "username102425597" -> "username"
+  // "username102425597 - Archive likr 30 times" -> "username"
+  // "user_name13092577139" -> "user_name"
   const base = filename.split(' ')[0]  // drop any " - ..." suffix
   return base.replace(/\d+$/, '').replace(/_$/, '')
 }
