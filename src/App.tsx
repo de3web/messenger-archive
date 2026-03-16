@@ -1,8 +1,10 @@
 import { useState, useEffect } from 'react'
+import './theme.css'
 import './App.css'
 import 'overlayscrollbars/overlayscrollbars.css'
 import Sidebar from './components/Sidebar'
 import ChatWindow from './components/ChatWindow'
+import ErrorBoundary from './components/ErrorBoundary'
 
 export interface ConversationMeta {
   id: string
@@ -25,10 +27,18 @@ function App() {
   const [loading, setLoading]             = useState(true)
   const [error, setError]                 = useState<string | null>(null)
   const [openWindows, setOpenWindows]     = useState<OpenWindow[]>([])
+  const [ownerName, setOwnerName]         = useState('')
+
+  useEffect(() => {
+    fetch('/api/config')
+      .then(r => { if (!r.ok) throw new Error(`HTTP ${r.status}`); return r.json() })
+      .then((data: { ownerName: string }) => setOwnerName(data.ownerName))
+      .catch(() => {})
+  }, [])
 
   useEffect(() => {
     fetch('/api/conversations')
-      .then(r => r.json())
+      .then(r => { if (!r.ok) throw new Error(`HTTP ${r.status}`); return r.json() })
       .then((data: ConversationMeta[]) => { setConversations(data); setLoading(false) })
       .catch(err => { setError(String(err)); setLoading(false) })
   }, [])
@@ -71,20 +81,22 @@ function App() {
         error={error}
         openWindowIds={openWindowIds}
         focusedId={focusedId}
+        ownerName={ownerName}
         onSelect={handleSelect}
       />
       {/* Transparent flex spacer — lets wallpaper show through */}
       <div className="app-desktop" />
       {openWindows.map((win, idx) => (
-        <ChatWindow
-          key={win.id}
-          windowId={win.id}
-          conversations={win.conversations}
-          zIndex={1000 + idx}
-          stackIndex={idx}
-          onClose={() => handleClose(win.id)}
-          onFocus={() => handleFocus(win.id)}
-        />
+        <ErrorBoundary key={win.id} onClose={() => handleClose(win.id)}>
+          <ChatWindow
+            windowId={win.id}
+            conversations={win.conversations}
+            zIndex={1000 + idx}
+            stackIndex={idx}
+            onClose={() => handleClose(win.id)}
+            onFocus={() => handleFocus(win.id)}
+          />
+        </ErrorBoundary>
       ))}
     </div>
   )

@@ -1,11 +1,10 @@
-import type { CSSProperties } from 'react'
-import type { ChatEvent } from './ChatWindow'
+import type { CSSProperties, ReactNode } from 'react'
+import type { ChatEvent } from '../types/chat'
 import { parseEmoticons } from '../utils/emoticons'
 import './Message.css'
 
 interface Props {
   event: ChatEvent
-  timeStr: string
   highlightTerm?: string
   isActiveMatch?: boolean
 }
@@ -32,7 +31,7 @@ function parseStyle(styleStr: string): CSSProperties {
   return result
 }
 
-function highlightParts(str: string, term: string, keyPrefix: string): React.ReactNode {
+function highlightParts(str: string, term: string, keyPrefix: string): ReactNode {
   if (!term) return str
   const escaped = term.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
   const parts = str.split(new RegExp(`(${escaped})`, 'gi'))
@@ -43,7 +42,7 @@ function highlightParts(str: string, term: string, keyPrefix: string): React.Rea
   )
 }
 
-function renderText(text: string, term: string): React.ReactNode {
+function renderText(text: string, term: string): ReactNode {
   const str = String(text ?? '')
   if (!str) return <em className="message-empty">(empty)</em>
 
@@ -57,7 +56,7 @@ function renderText(text: string, term: string): React.ReactNode {
   })
 }
 
-export default function Message({ event, timeStr, highlightTerm = '', isActiveMatch = false }: Props) {
+export default function Message({ event, highlightTerm = '', isActiveMatch = false }: Props) {
   if (event.type === 'invitation' || event.type === 'invitationResponse') {
     return (
       <div className="message-system">

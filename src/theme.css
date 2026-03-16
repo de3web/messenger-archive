@@ -1,0 +1,45 @@
+/* ── MSN Messenger XP Design Tokens ─────────────────────────────────────── */
+
+:root {
+  /* Titlebar gradient */
+  --xp-title-top:    #5baae5;
+  --xp-title-upper:  #3a7fd5;
+  --xp-title-mid:    #1156a3;
+  --xp-title-lower:  #0f4b94;
+  --xp-title-bottom: #0a3a7a;
+  --xp-title-border: #0a246a;
+
+  /* Blue accent — focused/active states, hover borders */
+  --xp-accent: #316ac5;
+
+  /* Panel backgrounds */
+  --xp-panel-light: #e8f0fa;
+  --xp-panel-fill:  #dae6f6;
+  --xp-panel-mid:   #c8d8ec;
+  --xp-panel-grad-top: #dce8f8;
+  --xp-panel-grad-bot: #c8d8f0;
+
+  /* Borders */
+  --xp-border:       #9ab4d0;
+  --xp-border-light: #a0b8d0;
+  --xp-border-mid:   #8aaed0;
+  --xp-border-dark:  #7aaace;
+
+  /* Classic XP gray (menu bar, status bar) */
+  --xp-gray-bg:     #ece9d8;
+  --xp-gray-border: #aca899;
+
+  /* Brand */
+  --xp-brand-red:  #d4380a;
+  --xp-brand-blue: #1156a3;
+
+  /* Text */
+  --text-muted:    #888;
+  --text-error:    #c00;
+  --text-secondary: #555;
+
+  /* Search highlights */
+  --search-match-bg:      #ffe066;
+  --search-active-bg:     #fff3cc;
+  --search-active-border: #f0a800;
+}

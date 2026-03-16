@@ -6,7 +6,8 @@
  *         data/export/<account>__<file>.json — full message log per conversation
  */
 
-import { scanAllConversations, parseConversation } from '../server/parser.js'
+import { scanAllConversations } from '../server/scanner.js'
+import { parseConversation } from '../server/xmlParser.js'
 import { writeFileSync, mkdirSync, existsSync } from 'fs'
 import { join } from 'path'
 

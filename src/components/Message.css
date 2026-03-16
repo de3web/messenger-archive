@@ -18,7 +18,7 @@
 
 .message-time {
   font-size: 10px;
-  color: #aaa;
+  color: var(--text-muted);
   flex-shrink: 0;
 }
 
@@ -47,9 +47,8 @@
   padding: 2px 0;
 }
 
-
 .search-match {
-  background: #ffe066;
+  background: var(--search-match-bg);
   color: #000;
   border-radius: 2px;
   padding: 0 1px;
@@ -63,8 +62,8 @@
 }
 
 .message-active-match {
-  background: #fff3cc;
-  border-left: 3px solid #f0a800;
+  background: var(--search-active-bg);
+  border-left: 3px solid var(--search-active-border);
   padding-left: 5px;
   margin-left: -8px;
   border-radius: 2px;

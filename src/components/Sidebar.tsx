@@ -9,6 +9,7 @@ interface Props {
   error: string | null
   openWindowIds: Set<string>
   focusedId: string | null
+  ownerName: string
   onSelect: (id: string, conversations: ConversationMeta[]) => void
 }
 
@@ -59,7 +60,7 @@ function buildGroups(
   return groups.sort((a, b) => a.name.localeCompare(b.name))
 }
 
-export default function Sidebar({ conversations, loading, error, openWindowIds = new Set(), focusedId, onSelect }: Props) {
+export default function Sidebar({ conversations, loading, error, openWindowIds = new Set(), focusedId, ownerName, onSelect }: Props) {
   const [nameSearch, setNameSearch]         = useState('')
   const [convSearch, setConvSearch]         = useState('')
   const [convTerm, setConvTerm]             = useState('')
@@ -73,13 +74,17 @@ export default function Sidebar({ conversations, loading, error, openWindowIds =
     return () => { if (debounceRef.current) clearTimeout(debounceRef.current) }
   }, [convSearch])
 
+  const abortRef = useRef<AbortController | null>(null)
   useEffect(() => {
     if (convTerm.length < 2) { setMatchingIds(null); return }
+    abortRef.current?.abort()
+    abortRef.current = new AbortController()
+    const signal = abortRef.current.signal
     setConvSearching(true)
-    fetch(`/api/search?q=${encodeURIComponent(convTerm)}`)
-      .then(r => r.json())
+    fetch(`/api/search?q=${encodeURIComponent(convTerm)}`, { signal })
+      .then(r => { if (!r.ok) throw new Error(`HTTP ${r.status}`); return r.json() })
       .then(data => { setMatchingIds(new Set<string>(data.ids)); setConvSearching(false) })
-      .catch(() => setConvSearching(false))
+      .catch(err => { if (err.name !== 'AbortError') setConvSearching(false) })
   }, [convTerm])
 
   const nameFiltered = conversations.filter(c =>
@@ -129,7 +134,7 @@ export default function Sidebar({ conversations, loading, error, openWindowIds =
         </div>
         <div className="msn-sidebar-profile-right">
           <div className="msn-sidebar-profile-name">
-            Dustin <span className="msn-sidebar-profile-status">(Online)</span>
+            {ownerName || 'Me'} <span className="msn-sidebar-profile-status">(Online)</span>
           </div>
           <div className="msn-sidebar-personal-msg">&lt;Type a personal message&gt;</div>
         </div>

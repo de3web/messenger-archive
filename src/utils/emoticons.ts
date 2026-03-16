@@ -103,16 +103,14 @@ const _pattern = new RegExp(`(${_escaped.join('|')})`, 'g')
 export function parseEmoticons(text: string): TextSegment[] {
   const segments: TextSegment[] = []
   let lastIndex = 0
-  let match: RegExpExecArray | null
 
-  _pattern.lastIndex = 0
-  while ((match = _pattern.exec(text)) !== null) {
-    if (match.index > lastIndex) {
+  for (const match of text.matchAll(_pattern)) {
+    if (match.index! > lastIndex) {
       segments.push({ type: 'text', value: text.slice(lastIndex, match.index) })
     }
-    const entry = EMOTICON_MAP.find(([code]) => code === match![0])
+    const entry = EMOTICON_MAP.find(([code]) => code === match[0])
     segments.push({ type: 'emoticon', code: match[0], emoji: entry?.[1] ?? match[0] })
-    lastIndex = match.index + match[0].length
+    lastIndex = match.index! + match[0].length
   }
   if (lastIndex < text.length) {
     segments.push({ type: 'text', value: text.slice(lastIndex) })

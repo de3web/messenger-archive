@@ -1,5 +1,10 @@
 import express from 'express'
-import { scanAllConversations, parseConversation, buildSearchIndex, searchConversations } from './parser.js'
+import { join } from 'path'
+import { existsSync } from 'fs'
+import { scanAllConversations } from './scanner.js'
+import { parseConversation } from './xmlParser.js'
+import { buildSearchIndex, searchConversations } from './search.js'
+import { OWNER_NAME } from './config.js'
 
 const app = express()
 const PORT = 3002
@@ -8,6 +13,10 @@ app.use((_, res, next) => {
   res.setHeader('Access-Control-Allow-Origin', '*')
   res.setHeader('Access-Control-Allow-Methods', 'GET')
   next()
+})
+
+app.get('/api/config', (_req, res) => {
+  res.json({ ownerName: OWNER_NAME })
 })
 
 app.get('/api/conversations', (_req, res) => {
@@ -39,6 +48,13 @@ app.get('/api/search', (req, res) => {
     res.status(500).json({ error: 'Search failed' })
   }
 })
+
+// Serve built frontend in production
+const clientDist = join(process.cwd(), 'dist', 'client')
+if (existsSync(clientDist)) {
+  app.use(express.static(clientDist))
+  app.get('*', (_req, res) => res.sendFile(join(clientDist, 'index.html')))
+}
 
 app.listen(PORT, () => {
   console.log(`Server running on http://localhost:${PORT}`)

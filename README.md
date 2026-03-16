@@ -47,25 +47,37 @@ Place your MSN Messenger history folders inside `data/`. The expected structure 
 ```
 data/
   <your_username_1>/
-    History/          (or history/ — case insensitive on Windows)
+    History/
       contact1.xml
       contact2.xml
       ...
-  <your_username_2>/   (optional — multiple accounts supported)
+  <your_username_2>/        (optional — multiple accounts supported)
     History/
       ...
 ```
 
 ### 3. Configure your accounts
 
-Open `server/parser.ts` and update the `ACCOUNTS` array to match your folder names:
+Copy the example config and edit it with your MSN username(s):
 
-```ts
-const ACCOUNTS = [
-  { name: 'your_username_1', historyDir: 'History' },
-  { name: 'your_username_2', historyDir: 'History' },
-]
+```bash
+cp data/config.example.json data/config.json
 ```
+
+```json
+{
+  "accounts": [
+    "your_username_1",
+    "your_username_2"
+  ],
+  "ownerName": "Your Name"
+}
+```
+
+- `accounts` — your MSN username folder name(s) inside `data/`
+- `ownerName` — your display name as it appears in the chat logs (used to identify your messages as "sent")
+
+The `History` folder name is detected automatically (`History`, `history`, and `HISTORY` are all supported).
 
 ### 4. Install dependencies and run
 
@@ -81,7 +93,8 @@ Then open [http://localhost:5173](http://localhost:5173) in your browser.
 | Command | Description |
 |---|---|
 | `npm run dev` | Start both the backend and frontend in development mode |
-| `npm run build` | Build the frontend for production |
+| `npm run build` | Build the frontend and server for production |
+| `npm start` | Run the production server (serves API + built frontend on port 3002) |
 | `npm run export` | Export all parsed conversations to `data/export/` as JSON |
 
 ## Tech Stack
