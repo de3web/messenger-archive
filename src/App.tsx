@@ -93,6 +93,7 @@ function App() {
             conversations={win.conversations}
             zIndex={1000 + idx}
             stackIndex={idx}
+            isFocused={win.id === focusedId}
             onClose={() => handleClose(win.id)}
             onFocus={() => handleFocus(win.id)}
           />

@@ -16,12 +16,6 @@
   font-size: 13px;
 }
 
-.message-time {
-  font-size: 10px;
-  color: var(--text-muted);
-  flex-shrink: 0;
-}
-
 .message-text {
   font-size: 13px;
   line-height: 1.4;

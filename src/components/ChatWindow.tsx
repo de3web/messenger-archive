@@ -20,6 +20,7 @@ interface Props {
   conversations: ConversationMeta[]
   zIndex: number
   stackIndex: number
+  isFocused: boolean
   onClose: () => void
   onFocus: () => void
 }
@@ -32,7 +33,7 @@ function formatDate(isoStr: string): string {
 }
 
 
-export default function ChatWindow({ windowId, conversations, zIndex, stackIndex, onClose, onFocus }: Props) {
+export default function ChatWindow({ windowId, conversations, zIndex, stackIndex, isFocused, onClose, onFocus }: Props) {
   const [minimized, setMinimized] = useState(false)
   const [osViewport, setOsViewport] = useState<HTMLElement | null>(null)
   const osRef = useRef<OverlayScrollbarsComponentRef>(null)
@@ -82,6 +83,19 @@ export default function ChatWindow({ windowId, conversations, zIndex, stackIndex
     matchIndices, matchIndexSet, findIdx,
     navigate,
   } = useFindInChat(items, (index, opts) => virtualizer.scrollToIndex(index, opts as Parameters<typeof virtualizer.scrollToIndex>[1]))
+
+  // Ctrl+F / Cmd+F opens the find bar for the frontmost window
+  useEffect(() => {
+    if (!isFocused) return
+    const onKeyDown = (e: KeyboardEvent) => {
+      if ((e.ctrlKey || e.metaKey) && e.key === 'f') {
+        e.preventDefault()
+        setShowFind(true)
+      }
+    }
+    document.addEventListener('keydown', onKeyDown)
+    return () => document.removeEventListener('keydown', onKeyDown)
+  }, [isFocused, setShowFind])
 
   // Scroll to bottom on initial load
   const didScrollRef = useRef(false)

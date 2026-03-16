@@ -11,7 +11,7 @@
   height: 530px;
   flex-direction: column;
   border: 2px solid var(--xp-title-border);
-  box-shadow: inset 0 0 0 1px #4a8ee0, 4px 4px 16px rgba(0, 0, 0, 0.6);
+  box-shadow: inset 0 0 0 1px var(--xp-shadow-blue), 4px 4px 16px rgba(0, 0, 0, 0.6);
   background: #fff;
   font-family: Tahoma, Verdana, sans-serif;
   font-size: 11px;
@@ -69,7 +69,7 @@
   overflow: hidden;
   text-overflow: ellipsis;
   font-weight: bold;
-  text-shadow: 1px 1px 2px rgba(0,0,0,0.4);
+  text-shadow: var(--xp-text-shadow);
 }
 
 .msn-taskbar-close {
@@ -130,7 +130,7 @@
   color: #fff;
   font-size: 11px;
   font-weight: bold;
-  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+  text-shadow: var(--xp-text-shadow);
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -146,7 +146,7 @@
   width: 21px;
   height: 19px;
   border: 1px solid;
-  border-color: #7bbde8 #0c3f8a #0c3f8a #7bbde8;
+  border-color: var(--xp-ctrl-border);
   background: linear-gradient(to bottom, #5199d6 0%, #2467b5 50%, #1a5aaa 100%);
   color: #fff;
   font-size: 9px;
@@ -157,6 +157,11 @@
   justify-content: center;
   padding: 0;
   line-height: 1;
+}
+
+.msn-ctrl:focus-visible {
+  outline: 1px dotted #fff;
+  outline-offset: -3px;
 }
 
 .msn-ctrl:hover {
@@ -190,9 +195,11 @@
   align-items: center;
 }
 
-.msn-menu-item:hover {
+.msn-menu-item:hover,
+.msn-menu-item:focus-visible {
   background: var(--xp-accent);
   color: #fff;
+  outline: none;
 }
 
 /* ── Toolbar ────────────────────────────────────────────────────────── */
@@ -230,9 +237,11 @@
   gap: 2px;
 }
 
-.msn-toolbar-btn:hover {
+.msn-toolbar-btn:hover,
+.msn-toolbar-btn:focus-visible {
   border-color: var(--xp-accent);
-  background: rgba(49, 106, 197, 0.12);
+  background: var(--xp-accent-hover-bg);
+  outline: none;
 }
 
 .msn-toolbar-btn-icon {
@@ -274,18 +283,33 @@
   gap: 3px;
 }
 
-.msn-brand-btn {
-  width: 20px;
-  height: 20px;
+/* Shared base for small icon buttons */
+.msn-brand-btn,
+.msn-hw-btn {
   border: 1px solid var(--xp-border-light);
   background: linear-gradient(to bottom, var(--xp-panel-light), var(--xp-panel-mid));
-  border-radius: 50%;
   cursor: pointer;
   font-size: 11px;
   display: flex;
   align-items: center;
   justify-content: center;
   padding: 0;
+}
+
+.msn-brand-btn:focus-visible,
+.msn-hw-btn:focus-visible {
+  outline: 2px solid var(--xp-accent);
+  outline-offset: 1px;
+}
+
+.msn-brand-btn {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+}
+
+.msn-brand-btn:hover {
+  background: linear-gradient(to bottom, var(--xp-panel-fill), var(--xp-panel-mid));
 }
 
 /* ── Body layout ────────────────────────────────────────────────────── */
@@ -363,8 +387,10 @@
   background: #fff;
 }
 
-.msn-find-input:focus {
+.msn-find-input:focus,
+.msn-find-input:focus-visible {
   border-color: var(--xp-accent);
+  outline: none;
 }
 
 .msn-find-count {
@@ -390,8 +416,10 @@
   flex-shrink: 0;
 }
 
-.msn-find-nav:hover:not(:disabled) {
+.msn-find-nav:hover:not(:disabled),
+.msn-find-nav:focus-visible:not(:disabled) {
   background: linear-gradient(to bottom, var(--xp-panel-fill), var(--xp-border));
+  outline: none;
 }
 
 .msn-find-nav:disabled {
@@ -415,14 +443,16 @@
   border-radius: 2px;
 }
 
-.msn-find-close:hover {
+.msn-find-close:hover,
+.msn-find-close:focus-visible {
   background: #f0d0d0;
   color: var(--text-error);
+  outline: none;
 }
 
-.msn-search-btn-active {
-  background: linear-gradient(to bottom, #c8e0ff 0%, #a0c4f0 50%, #90b4e0 100%) !important;
-  border-color: var(--xp-accent) #0c3f8a #0c3f8a var(--xp-accent) !important;
+.msn-search-btn.msn-search-btn-active {
+  background: linear-gradient(to bottom, #c8e0ff 0%, #a0c4f0 50%, #90b4e0 100%);
+  border-color: var(--xp-accent) #0c3f8a #0c3f8a var(--xp-accent);
 }
 
 /* ── Messages scroll area ───────────────────────────────────────────── */
@@ -548,9 +578,11 @@
   white-space: nowrap;
 }
 
-.msn-fmt-btn:hover {
+.msn-fmt-btn:hover,
+.msn-fmt-btn:focus-visible {
   border-color: var(--xp-accent);
-  background: rgba(49, 106, 197, 0.1);
+  background: var(--xp-accent-hover-bg);
+  outline: none;
 }
 
 .msn-fmt-font {
@@ -599,7 +631,7 @@
   font-size: 11px;
   font-family: Tahoma, sans-serif;
   border: 1px solid;
-  border-color: #7bbde8 #0c3f8a #0c3f8a #7bbde8;
+  border-color: var(--xp-ctrl-border);
   background: linear-gradient(to bottom, var(--xp-panel-light) 0%, var(--xp-panel-fill) 50%, var(--xp-panel-mid) 100%);
   cursor: pointer;
   border-radius: 2px;
@@ -607,8 +639,11 @@
 }
 
 .msn-send-btn:hover,
-.msn-search-btn:hover {
+.msn-search-btn:hover,
+.msn-send-btn:focus-visible,
+.msn-search-btn:focus-visible {
   background: linear-gradient(to bottom, #f0f8ff 0%, var(--xp-panel-light) 50%, var(--xp-panel-fill) 100%);
+  outline: none;
 }
 
 .msn-handwriting-btns {
@@ -621,15 +656,11 @@
 .msn-hw-btn {
   width: 22px;
   height: 20px;
-  border: 1px solid var(--xp-border-light);
-  background: linear-gradient(to bottom, var(--xp-panel-light), var(--xp-panel-mid));
-  cursor: pointer;
-  font-size: 11px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 0;
   border-radius: 2px;
+}
+
+.msn-hw-btn:hover {
+  background: linear-gradient(to bottom, var(--xp-panel-fill), var(--xp-panel-mid));
 }
 
 
